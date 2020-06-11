@@ -71,13 +71,13 @@ var confetti = {
 		if (pause)
 			return;
 		else if (particles.length === 0) {
-			context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+			context.clearRect(0, 0, document.body.clientWidth, document.body.clientHeight);
 			animationTimer = null;
 		} else {
 			var now = Date.now();
 			var delta = now - lastFrameTime;
 			if (!supportsAnimationFrame || delta > confetti.frameInterval) {
-				context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+				context.clearRect(0, 0, document.body.clientWidth, document.body.clientHeight);
 				updateParticles();
 				drawParticles(context);
 				lastFrameTime = now - (delta % confetti.frameInterval);
@@ -87,8 +87,8 @@ var confetti = {
 	}
 
 	function startConfetti(timeout, min, max) {
-		var width = window.innerWidth;
-		var height = window.innerHeight;
+		var width = document.body.clientWidth;
+		var height = document.body.clientHeight;
 		window.requestAnimationFrame = (function() {
 			return window.requestAnimationFrame ||
 				window.webkitRequestAnimationFrame ||
@@ -108,8 +108,8 @@ var confetti = {
 			canvas.width = width;
 			canvas.height = height;
 			window.addEventListener("resize", function() {
-				canvas.width = window.innerWidth;
-				canvas.height = window.innerHeight;
+				canvas.width = document.body.clientWidth;
+				canvas.height = document.body.clientHeight;
 			}, true);
 			context = canvas.getContext("2d");
 		} else if (context === null)
@@ -186,8 +186,8 @@ var confetti = {
 	}
 
 	function updateParticles() {
-		var width = window.innerWidth;
-		var height = window.innerHeight;
+		var width = document.body.clientWidth;
+		var height = document.body.clientHeight;
 		var particle;
 		waveAngle += 0.01;
 		for (var i = 0; i < particles.length; i++) {
